@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+int partition(int a[],int f,int l){
+	int pivot=a[l];
+	int i=f-1;
+	int j=f;
+	while(j<=l-1){
+		if(a[j]<pivot){
+			i++;
+			int temp=a[j];
+			a[j]=a[i];
+			a[i]=temp;
+		}
+		j++;
+	}
+	int temp1=a[l];
+	a[l]=a[i+1];
+	a[i+1]=temp1;
+	return i+1;
+}
+
+void quick(int a[],int f,int l){
+	if(f<l){
+		int pos=partition(a,f,l);
+		quick(a,f,pos-1);
+		quick(a,pos+1,l);
+	}
+}
+
+int main(){
+	int n;
+	cout<<"Enter size ";
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	quick(a,0,n-1);
+	cout<<"Sorted array is: "<<endl;
+	for(int i=0;i<n;i++){
+		cout<<a[i]<<" ";
+	}
+	return 0;
+}
